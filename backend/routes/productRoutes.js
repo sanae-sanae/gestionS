@@ -1,10 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const Product = require("../models/product"); // Modèle produit
-const verifyToken = require("../middleware/authMiddleware"); // Middleware JWT
+const Product = require("../models/product"); 
+const verifyToken = require("../middleware/authMiddleware"); 
 const router = express.Router();
 
-// Configuration de Multer pour l'upload des images
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Route : Ajouter un produit
 router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   const { name, description, price, stock } = req.body;
   const image = req.file.filename;
@@ -37,7 +36,6 @@ router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   }
 });
 
-// Route : Récupérer tous les produits
 router.get("/", verifyToken, async (req, res) => {
   try {
     const products = await Product.find();
@@ -47,7 +45,6 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
-// Route : Supprimer un produit
 router.delete("/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
 
@@ -59,7 +56,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
   }
 });
 
-// Route : Mettre à jour un produit
+
 router.put("/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
   const { name, description, price, stock } = req.body;

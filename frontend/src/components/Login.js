@@ -17,10 +17,10 @@ function Login() {
       });
       const token = response.data.token;
 
-      // Stocker le token dans le localStorage
+     
       localStorage.setItem("token", token);
 
-      // Rediriger vers le tableau de bord admin
+     
       navigate("/admin");
     } catch (err) {
       setError("Invalid username or password");
